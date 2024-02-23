@@ -54,8 +54,6 @@ public class DeviceSettingsFragment extends PreferenceFragment implements
 
     private SeekBarPreference mVibStrengthPref;
 
-    private DiracUtils mDiracUtils;
-
     private Vibrator mVibrator;
 
     @Override
