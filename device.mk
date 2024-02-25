@@ -5,18 +5,15 @@
 # SPDX-License-Identifier: Apache-2.0
 #
 
-# Enable updating of APEXes
-$(call inherit-product, $(SRC_TARGET_DIR)/product/updatable_apex.mk)
-
 # Vendor blobs
 $(call inherit-product, vendor/xiaomi/ginkgo/ginkgo-vendor.mk)
 
 # Overlays
 DEVICE_PACKAGE_OVERLAYS += \
-    $(LOCAL_PATH)/overlay \
-    $(LOCAL_PATH)/overlay-lineage
+    $(LOCAL_PATH)/overlay
 
 PRODUCT_PACKAGES += \
+    GinkgoMiuiCamera \
     GinkgoNoCutoutOverlay \
     NotchBarKiller \
     WillowFrameworkRes
@@ -28,6 +25,9 @@ PRODUCT_PACKAGES += \
 # ANT+
 PRODUCT_PACKAGES += \
     com.dsi.ant@1.0.vendor
+
+# Enable updating of APEXes
+$(call inherit-product, $(SRC_TARGET_DIR)/product/updatable_apex.mk)
 
 # Audio
 PRODUCT_PACKAGES += \
@@ -74,6 +74,12 @@ PRODUCT_PACKAGES += \
     android.hardware.bluetooth@1.1.vendor \
     android.hardware.bluetooth.audio-impl \
     audio.bluetooth.default \
+    com.qualcomm.qti.bluetooth_audio@1.0.vendor \
+    libbtconfigstore \
+    libbthost_if \
+    libldacBT_enc \
+    libldacBT_abr \
+    libldacBT_bco \
     vendor.qti.hardware.bluetooth_audio@2.1.vendor \
     vendor.qti.hardware.btconfigstore@1.0.vendor \
     vendor.qti.hardware.btconfigstore@2.0.vendor
@@ -82,18 +88,16 @@ PRODUCT_COPY_FILES += \
     frameworks/native/data/etc/android.hardware.bluetooth_le.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/android.hardware.bluetooth_le.xml \
     frameworks/native/data/etc/android.hardware.bluetooth.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/android.hardware.bluetooth.xml
 
-# Boot animation
-TARGET_SCREEN_HEIGHT := 2340
-TARGET_SCREEN_WIDTH := 1080
-
 # Camera
+$(call inherit-product-if-exists, vendor/miuicamera/config.mk)
+
 PRODUCT_PACKAGES += \
     android.frameworks.displayservice@1.0.vendor \
     android.hardware.camera.provider@2.4-impl \
     android.hardware.camera.provider@2.4-service \
     android.hidl.memory.block@1.0.vendor \
     vendor.qti.hardware.camera.device@1.0.vendor \
-    libwatermark_shim
+    libpiex_shim
 
 PRODUCT_COPY_FILES += \
     frameworks/native/data/etc/android.hardware.camera.flash-autofocus.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/android.hardware.camera.flash-autofocus.xml \
@@ -114,6 +118,7 @@ PRODUCT_AAPT_CONFIG := normal
 PRODUCT_AAPT_PREF_CONFIG := xxhdpi
 
 PRODUCT_PACKAGES += \
+    android.hardware.graphics.composer@2.4-impl \
     android.hardware.graphics.composer@2.4-service \
     android.hardware.graphics.mapper@3.0-impl-qti-display \
     android.hardware.graphics.mapper@4.0-impl-qti-display \
@@ -137,6 +142,9 @@ PRODUCT_COPY_FILES += \
     frameworks/native/data/etc/android.hardware.vulkan.level-1.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/android.hardware.vulkan.level-1.xml \
     frameworks/native/data/etc/android.hardware.vulkan.version-1_1.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/android.hardware.vulkan.version-1_1.xml
 
+# Screen Resolution
+TARGET_SCREEN_HEIGHT := 2340
+TARGET_SCREEN_WIDTH := 1080
 
 # DRM
 PRODUCT_PACKAGES += \
@@ -191,9 +199,7 @@ PRODUCT_PACKAGES += \
     android.hidl.manager@1.0.vendor
 
 PRODUCT_PACKAGES += \
-    libhidltransport \
     libhidltransport.vendor \
-    libhwbinder \
     libhwbinder.vendor
 
 # IMS
@@ -233,14 +239,6 @@ PRODUCT_COPY_FILES += \
 PRODUCT_PACKAGES += \
     android.hardware.light@2.0-service.ginkgo
 
-# Lineage Health
-PRODUCT_PACKAGES += \
-    vendor.lineage.health-service.default
-
-# LiveDisplay
-PRODUCT_PACKAGES += \
-    vendor.lineage.livedisplay@2.0-service-sdm
-
 # Media
 PRODUCT_PACKAGES += \
     libc2dcolorconvert \
@@ -273,6 +271,10 @@ PRODUCT_COPY_FILES += \
     frameworks/av/media/libstagefright/data/media_codecs_google_video.xml:$(TARGET_COPY_OUT_VENDOR)/etc/media_codecs_google_video.xml \
     frameworks/av/media/libstagefright/data/media_codecs_google_c2_video.xml:$(TARGET_COPY_OUT_VENDOR)/etc/media_codecs_google_c2_video.xml \
     frameworks/av/media/libstagefright/data/media_codecs_google_video_le.xml:$(TARGET_COPY_OUT_VENDOR)/etc/media_codecs_google_video_le.xml
+
+# Lineage Health
+PRODUCT_PACKAGES += \
+    vendor.lineage.health-service.default
 
 # Netmgr
 PRODUCT_PACKAGES += \
@@ -357,7 +359,6 @@ PRODUCT_PACKAGES += \
 # RIL
 PRODUCT_PACKAGES += \
     libjson \
-    libprotobuf-cpp-full \
     libprotobuf-cpp-full-3.9.1-vendorcompat \
     librmnetctl
 
@@ -400,6 +401,7 @@ PRODUCT_SOONG_NAMESPACES += \
     $(LOCAL_PATH) \
     hardware/google/interfaces \
     hardware/google/pixel \
+    vendor/qcom/opensource/usb/etc
 
 # Telephony
 PRODUCT_PACKAGES += \
@@ -426,10 +428,6 @@ PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/configs/thermal/thermal-engine-camera.conf:$(TARGET_COPY_OUT_VENDOR)/etc/thermal-engine-camera.conf \
     $(LOCAL_PATH)/configs/thermal/thermal-engine-map.conf:$(TARGET_COPY_OUT_VENDOR)/etc/thermal-engine-map.conf \
     $(LOCAL_PATH)/configs/thermal/thermal-engine-normal.conf:$(TARGET_COPY_OUT_VENDOR)/etc/thermal-engine-normal.conf
-
-# Trust
-PRODUCT_PACKAGES += \
-    vendor.lineage.trust@1.0-service
 
 # USB
 PRODUCT_PACKAGES += \

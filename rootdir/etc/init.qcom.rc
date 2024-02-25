@@ -32,8 +32,6 @@ import /vendor/etc/init/hw/init.ginkgo.rc
 on early-init
     mount debugfs debugfs /sys/kernel/debug
     chmod 0755 /sys/kernel/debug
-    mount tracefs tracefs /sys/kernel/tracing
-    chmod 0755 /sys/kernel/tracing
 
   # create symlink for vendor mount points
     symlink /vendor/firmware_mnt /firmware
@@ -238,9 +236,6 @@ on boot
 
     # limit discard size to 128MB in order to avoid long IO latency
     write /sys/block/sda/queue/discard_max_bytes 134217728
-
-    # Power supply
-    chmod 0660 /sys/class/power_supply/battery/input_suspend
 
 # msm specific files that need to be created on /data
 on post-fs-data
