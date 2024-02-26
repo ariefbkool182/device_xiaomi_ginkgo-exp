@@ -27,6 +27,10 @@
 # Audio socket
 /dev/socket/audio_hw_socket                                                          u:object_r:audio_socket:s0
 
+# Dolby
+/data/vendor/dolby(/.*)?                                                             u:object_r:vendor_data_file:s0
+/(vendor|system/vendor)/bin/hw
+
 # Fingerprint
 /(vendor|system/vendor)/bin/hw/android\.hardware\.biometrics\.fingerprint@2\.1-service\.ginkgo u:object_r:hal_fingerprint_default_exec:s0
 
