@@ -1,3 +1,6 @@
+echo 'Cloning dolby atmos'
+git clone --depth=1 https://github.com/Astridxx/vendor_dolby -b lineage-21.0 vendor/dolby
+
 echo 'Adding patch to Frameworks av'
 cd frameworks/av
 wget https://raw.githubusercontent.com/Astridxx/Patch-Kuntao/lineage-21/frameworks_av/0002-OMXStore-Import-loading-libstagefrightdolby.patch
