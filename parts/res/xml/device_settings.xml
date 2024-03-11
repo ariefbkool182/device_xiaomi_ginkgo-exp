@@ -24,6 +24,17 @@
         android:title="@string/audio_title">
 
         <Preference
+        android:key="dolby"
+        android:title="@string/dolby_settings_title"
+        android:summary="@string/dolby_settings_summary"
+        android:icon="@drawable/ic_dolby"
+        android:persistent="false" >
+        <intent android:action="android.intent.action.MAIN"
+                android:targetPackage="com.dolby.daxappui"
+                android:targetClass="com.dolby.daxappui.MainActivity" />
+    </Preference>
+
+        <Preference
             android:key="clear_speaker_settings" 
             android:icon="@drawable/ic_speaker_cleaner_icon"
             android:title="@string/clear_speaker_title" >

@@ -21,6 +21,10 @@
     <string name="device_settings_summary">Pengaturan Ekstra</string>
     <string name="audio_title">Audio</string>
 
+    <!-- Dolby -->
+     <string name="dolby_settings_title">Dolby Atmos™</string>
+     <string name="dolby_settings_summary">Setting Dolby Atmos™</string>
+
     <!-- Clear Speaker -->
     <string name="clear_speaker_title">Pembersih speaker</string>
     <string name="clear_speaker_summary">Putar audio 30-detik untuk membersihkan speaker</string>
